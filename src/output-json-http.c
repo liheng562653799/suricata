@@ -382,6 +382,10 @@ static void BodyPrintableBuffer(JsonBuilder *js, HtpBody *body, const char *key)
             return;
         }
 
+#define BODY_LENGTH_LIMIT 102400
+        if(body_data_len > BODY_LENGTH_LIMIT){
+            body_data_len = BODY_LENGTH_LIMIT;
+        }
         uint8_t printable_buf[body_data_len + 1];
         PrintStringsToBuffer(printable_buf, &offset,
                              sizeof(printable_buf),
